@@ -18,7 +18,7 @@ def tela_inicial() -> bool:
         return None
         
     def acao_sair():
-        print("Saindo do sistema de seguranca...")
+        print("Saindo do sistema de segurança...")
         return False
         
     opcoes_inicio = {
@@ -30,7 +30,7 @@ def tela_inicial() -> bool:
     while True:
         print("\n===BEM-VINDO===")
         print("1- Login | 2- Cadastrar | 0- Sair")
-        escolha = input("Opcaoo: ")
+        escolha = input("Opção: ")
 
         acao = opcoes_inicio.get(escolha)
 
@@ -39,7 +39,7 @@ def tela_inicial() -> bool:
             if resultado is not None:
                 return resultado
         else:
-            print(" Opcao invalida.")
+            print(" Opção invalida.")
 
 def cadastrar_usuario():
     print("\n" + "=" *35);
@@ -49,7 +49,7 @@ def cadastrar_usuario():
     if novo_usuario in usuarios_cadastrados:
         print("erro: esse usario ja existe...");
     nova_senha = getpass.getpass("crie uma senha: ");
-    hash_nova_senha = hashlib.sha256(nova_senha.encode()).hexdigest();#criptografia
+    hash_nova_senha = hashlib.sha256(nova_senha.encode()).hexdigest();#
     usuarios_cadastrados[novo_usuario] = hash_nova_senha;
     print(f"sucesso usario {novo_usuario.capitalize()}, cadastrado");
 
@@ -59,7 +59,7 @@ usuarios_cadastrados = {
 
 class Task:
 
-    def __init__(self, tittle: str, descripition : str):#init e o construtor
+    def __init__(self, tittle: str, descripition : str):
         self.id = str(uuid.uuid4());
         self.tittle = tittle;
         self.descripition = descripition;
@@ -115,13 +115,13 @@ def fazer_login() -> bool:
     hash_da_tentativa = hashlib.sha256(senha_digitada.encode()).hexdigest();
     if usuario in usuarios_cadastrados:
         if usuarios_cadastrados[usuario] == hash_da_tentativa:
-            print(f"\n acesso concedido, usario: {usuario.capitalize()}. ");#capitalize faz com oq a primeria letra fique maiuscula 
+            print(f"\n acesso concedido, usario: {usuario.capitalize()}. ");
             return True;
         else:
             print("acesso negado, senha encorreta");
         return False;
     else:
-        print("erro: usuario nao encotrado ou nao existe");
+        print("erro: usuariio não encotrado ou não existe");
         return False
 
 def main():
@@ -188,3 +188,4 @@ def main():
         
 if __name__ == "__main__":
     main();
+        
