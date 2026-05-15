@@ -18,7 +18,7 @@ def tela_inicial() -> bool:
         return None
         
     def acao_sair():
-        print("Saindo do sistema de segurança...")
+        print("out of security system...")
         return False
         
     opcoes_inicio = {
@@ -29,8 +29,8 @@ def tela_inicial() -> bool:
 
     while True:
         print("\n===BEM-VINDO===")
-        print("1- Login | 2- Cadastrar | 0- Sair")
-        escolha = input("Opção: ")
+        print("1- Login | 2- registration | 0- out")
+        escolha = input("Option: ")
 
         acao = opcoes_inicio.get(escolha)
 
@@ -39,19 +39,19 @@ def tela_inicial() -> bool:
             if resultado is not None:
                 return resultado
         else:
-            print(" Opção invalida.")
+            print(" invalid option.")
 
 def cadastrar_usuario():
     print("\n" + "=" *35);
-    print("--tela de cadastro--")
+    print("--registration screen--")
     print("=" * 35);
-    novo_usuario = input("crie um nome de usuario: ").strip().lower();
+    novo_usuario = input("creaste a user name: ").strip().lower();
     if novo_usuario in usuarios_cadastrados:
-        print("erro: esse usario ja existe...");
-    nova_senha = getpass.getpass("crie uma senha: ");
+        print("error: this user alrady exist...");
+    nova_senha = getpass.getpass("create a password: ");
     hash_nova_senha = hashlib.sha256(nova_senha.encode()).hexdigest();#
     usuarios_cadastrados[novo_usuario] = hash_nova_senha;
-    print(f"sucesso usario {novo_usuario.capitalize()}, cadastrado");
+    print(f"succes user {novo_usuario.capitalize()}, craete");
 
 usuarios_cadastrados = {
     "admin" : "123"
@@ -67,7 +67,7 @@ class Task:
     
     def mostra_tarefa(self):
         print(f"[{self.status}] [{self.tittle}] (ID: {[self.id]})");
-        print(f"  detalhes: [{self.descripition}]")
+        print(f"  details: [{self.descripition}]")
 
 class Task_Manager:
     
@@ -77,13 +77,13 @@ class Task_Manager:
     def create_task(self, tittle: str, descripition: str):      
         nova_tarefa = Task(tittle, descripition);
         self.task[nova_tarefa.id] = nova_tarefa;
-        print(f"tarefa criada!, ID gerado: {nova_tarefa.id}");
+        print(f"task creat!, ID gerate: {nova_tarefa.id}");
     
     def list_task(self):    
         if not self.task:
-            print("nenhuma terafa encontrada");
+            print("not task found ");
             return;
-        print("--lista de terafas--");
+        print("--work screen--");
         for task in self.task.values():
             task.mostra_tarefa();
     
@@ -92,36 +92,36 @@ class Task_Manager:
         status_tratado = novo_status.lower().strip();
         if novo_status not in status_permitidos:
             self.task[id_alvo].status = status_tratado;
-            print("tarefa invalida...caloteiro");
+            print("invalid task.....");
             return;
         if id_alvo in self.task:
             self.task[id_alvo].status = novo_status;
-            print("status atualizado");
+            print("status updated");
         else:
-            print("erro: tarefa nao encontrada");
+            print("error: task not found");
     
     def delete_task(self, id_alvo: str):
         if id_alvo in self.task:
             del self.task[id_alvo];
-            print("terafa expurgada com sucesso!!");
+            print(" task extinguish with succes!!");
         else:
-            print("tarefa nao encontrada");
+            print("task not found");
 
 def fazer_login() -> bool:
     print("\n" + "=" *35);
-    print("tela de login");
-    usuario = input("usuario: ").strip().lower();
-    senha_digitada = getpass.getpass("senha: ");
+    print("login screen");
+    usuario = input("user: ").strip().lower();
+    senha_digitada = getpass.getpass("password: ");
     hash_da_tentativa = hashlib.sha256(senha_digitada.encode()).hexdigest();
     if usuario in usuarios_cadastrados:
         if usuarios_cadastrados[usuario] == hash_da_tentativa:
-            print(f"\n acesso concedido, usario: {usuario.capitalize()}. ");
+            print(f"\n access succeded, user: {usuario.capitalize()}. ");
             return True;
         else:
-            print("acesso negado, senha encorreta");
+            print("acces deny, wrong password");
         return False;
     else:
-        print("erro: usuariio não encotrado ou não existe");
+        print("error: user not found or dont exist");
         return False
 
 def main():
@@ -130,7 +130,7 @@ def main():
         autenticado = tela_inicial();
         gerenciador = Task_Manager();
         if not autenticado:
-            print("sistema encerrrado");
+            print("System out");
             sistema_ativo = False;
         else:
             gerenciador = Task_Manager();
@@ -143,23 +143,23 @@ def main():
         rodando: bool = True;
         #acao: Callable[[], None] | None = opcao_menu.get(opcao);
         if not autenticado:
-            print("encerrando o sistema");
+            print("quinting System");
             return;
         gerenciador = Task_Manager();
         rodando: bool = True;
         def menu_criar():
-            titulo = input("digito o titulo: ");
+            titulo = input("type the tittle: ");
             titulo_seguro = html.escape(titulo);#limpar titulo da tarefa
-            desc = input("degite a descricao: ");
+            desc = input("type the description: ");
             gerenciador.create_task(titulo, desc);
     
         def menu_atualizar():
-            id_alvo = input("digite o ID da tarefa: ").strip().replace("'", "").replace('"', '');
-            novo_st = input("digite o novo status: ");
+            id_alvo = input("type the ID of task: ").strip().replace("'", "").replace('"', '');
+            novo_st = input("type a new status: ");
             gerenciador.update_task(id_alvo, novo_st);
     
         def menu_deletar():
-            id_alvo = input("digite o ID para deletar: ");
+            id_alvo = input("type the ID to delete: ");
             gerenciador.delete_task(id_alvo);
     
         opcao_menu =  {
@@ -171,10 +171,10 @@ def main():
         try:
             while rodando:
                 print("\n --GERENCIADOR BOLADO 10.000--");
-                print("1-criar | 2- listar | 3- atualizar | 4. deletar | 0. sair");
-                opcao = input("escolha: ");
+                print("1-create | 2- list | 3- update | 4. delete | 0. quit");
+                opcao = input("chose: ");
                 if opcao == "0":
-                    print("saindo.....bixo caloteiro");
+                    print("quiting....");
                     rodando = False;
                 else:
                     acao: Callable[[], None] | None = opcao_menu.get(opcao);
@@ -182,9 +182,9 @@ def main():
                 if acao:
                     acao();
                 else:
-                    print("opcao invalida");
+                    print("invalid option");
         except Exception as e:
-            print("erro no servido contade ao suporte");
+            print("error on the serv please contact suport");
         
 if __name__ == "__main__":
     main();
